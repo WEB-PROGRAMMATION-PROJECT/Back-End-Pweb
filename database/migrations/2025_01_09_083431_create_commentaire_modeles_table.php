@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommandesTable extends Migration
+class CreateCommentaireModelesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateCommandesTable extends Migration
      */
     public function up()
     {
-        Schema::create('commandes', function (Blueprint $table) {
+        Schema::create('commentaire_modeles', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('modele_id')->constrained('modeles')->onDelete('cascade');
+            $table->foreignId('commentaire_id')->constrained('commentaires')->onDelete('cascade');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateCommandesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commandes');
+        Schema::dropIfExists('commentaire_modeles');
     }
 }

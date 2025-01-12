@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Styliste;
+use App\Models\Stylist;
+use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class StylisteController extends Controller
 {
@@ -35,16 +37,41 @@ class StylisteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // app/Models/Stylist.php
+        namespace App\Models;
+
+        use Illuminate\Database\Eloquent\Factories\HasFactory;
+        use Illuminate\Database\Eloquent\Model;
+
+        class Stylist extends Model
+        {
+            use HasFactory;
+
+            protected $fillable = [
+                'user_id',
+                'phone_number',
+                'specializations',
+                'description',
+                'profile_picture_url',
+                'points',
+                'collections',
+                'awards',
+                'rating',
+                'response_time',
+                'completed_orders',
+                'specialites',
+            ];
+        }
+
+        }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Styliste  $styliste
+     * @param  \App\Models\Stylist  $styliste
      * @return \Illuminate\Http\Response
      */
-    public function show(Styliste $styliste)
+    public function show(Stylist $styliste)
     {
         //
     }
@@ -52,10 +79,10 @@ class StylisteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Styliste  $styliste
+     * @param  \App\Models\Stylist  $styliste
      * @return \Illuminate\Http\Response
      */
-    public function edit(Styliste $styliste)
+    public function edit(Stylist $styliste)
     {
         //
     }
@@ -64,10 +91,10 @@ class StylisteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Styliste  $styliste
+     * @param  \App\Models\Stylist  $styliste
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Styliste $styliste)
+    public function update(Request $request, Stylist $styliste)
     {
         //
     }
@@ -75,10 +102,10 @@ class StylisteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Styliste  $styliste
+     * @param  \App\Models\Stylist  $styliste
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Styliste $styliste)
+    public function destroy(Stylist $styliste)
     {
         //
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateCommentaireStylistesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('commentaire_stylistes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('styliste_id')->constrained('stylistes')->onDelete('cascade');
+            $table->foreignId('commentaire_id')->constrained('commentaires')->onDelete('cascade');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('commentaire_stylistes');
     }
 }

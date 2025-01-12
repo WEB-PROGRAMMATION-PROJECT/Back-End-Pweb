@@ -15,7 +15,12 @@ class CreatePaiementsTable extends Migration
     {
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('commande_id')->constrained('commandes')->onDelete('cascade');
+            $table->decimal('montant', 10, 2);
+            $table->string('methode');
+            $table->enum('status', ['pending', 'completed', 'failed', 'refunded'])->default('pending');
+            $table->string('reference_transaction')->nullable();
+            $table->timestamps(0);
         });
     }
 

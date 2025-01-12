@@ -15,7 +15,14 @@ class CreatePromotionsTable extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('link')->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamp('debut_at')->nullable();
+            $table->timestamp('fin_at')->nullable();
+            $table->timestamps(0);
         });
     }
 

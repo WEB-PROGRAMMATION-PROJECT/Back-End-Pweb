@@ -15,7 +15,11 @@ class CreateDisponibilitesTable extends Migration
     {
         Schema::create('disponibilites', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('styliste_id')->constrained('stylistes')->onDelete('cascade');
+            $table->date('jour');
+            $table->time('heure');
+            $table->enum('status', ['available', 'booked', 'unavailable'])->default('available');
+            $table->timestamps(0);
         });
     }
 
