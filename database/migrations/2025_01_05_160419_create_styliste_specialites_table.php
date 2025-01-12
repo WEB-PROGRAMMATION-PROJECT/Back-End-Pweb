@@ -13,9 +13,10 @@ class CreateStylisteSpecialitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('styliste_specialites', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('stylist_specialites', function (Blueprint $table) {
+            $table->foreignId('styliste_id')->constrained('stylists')->onDelete('cascade');
+            $table->foreignId('specialite_id')->constrained('specialites')->onDelete('cascade');
+            $table->primary(['styliste_id', 'specialite_id']); // Clé composite
         });
     }
 

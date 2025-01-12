@@ -4,17 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentaireModelesTable extends Migration
+class CreateMateriauxTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('commentaire_modeles', function (Blueprint $table) {
-            $table->foreignId('id')->constrained('commentaires')->onDelete('cascade');
+        Schema::create('materiaux', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('modele_id')->constrained('modeles')->onDelete('cascade');
-            $table->primary(['id', 'modele_id']);
+            $table->string('name', 100);
+            $table->text('description')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -23,6 +25,6 @@ class CreateCommentaireModelesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commentaire_modeles');
+        Schema::dropIfExists('materiaux');
     }
 }

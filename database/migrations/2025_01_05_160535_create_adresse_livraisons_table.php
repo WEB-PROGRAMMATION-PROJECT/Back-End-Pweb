@@ -8,23 +8,26 @@ class CreateAdresseLivraisonsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('adresse_livraisons', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+            $table->string('pays', 100);
+            $table->string('ville', 100);
+            $table->string('rue', 255)->nullable();
+            $table->string('quartier', 100)->nullable();
+            $table->enum('type', ['domicile', 'bureau', 'autre'])->default('domicile');
+            $table->boolean('est_default')->default(false);
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('adresse_livraisons');
     }

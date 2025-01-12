@@ -8,23 +8,20 @@ class CreateCommentaireStylistesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('commentaire_stylistes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->foreignId('id')->constrained('commentaires')->onDelete('cascade');
+            $table->foreignId('styliste_id')->constrained('stylists')->onDelete('cascade');
+            $table->primary(['id', 'styliste_id']);
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('commentaire_stylistes');
     }

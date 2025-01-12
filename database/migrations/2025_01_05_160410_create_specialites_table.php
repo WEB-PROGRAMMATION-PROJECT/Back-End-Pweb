@@ -15,7 +15,7 @@ class CreateSpecialitesTable extends Migration
     {
         Schema::create('specialites', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name', 100)->unique();
         });
     }
 
