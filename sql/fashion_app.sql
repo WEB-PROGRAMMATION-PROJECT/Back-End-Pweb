@@ -32,6 +32,7 @@ CREATE TABLE stylistes
     phone_number        VARCHAR(20),
     specializations     TEXT,
     description         TEXT,
+    titre               VARCHAR(255),
     profile_picture_url VARCHAR(255),
     points              INT           DEFAULT 0,
     collections         INT           DEFAULT 0,
@@ -39,7 +40,7 @@ CREATE TABLE stylistes
     rating              DECIMAL(3, 2) DEFAULT 0,
     response_time       VARCHAR(50),
     completed_orders    INT           DEFAULT 0,
-    specialites         VARCHAR(255),
+    social_links        JSON          DEFAULT NULL, -- Nouveau champ JSON pour les liens des réseaux sociaux
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -54,6 +55,13 @@ CREATE TABLE clients
     hauteur_totale DECIMAL(6, 2),
     longueur_bras  DECIMAL(6, 2),
     tour_cou       DECIMAL(6, 2),
+    largeur_dos         DECIMAL(6, 2),
+    longueur_jambe      DECIMAL(6, 2),
+    tour_cuisse         DECIMAL(6, 2),
+    tour_cheville       DECIMAL(6, 2),
+    tour_poignet        DECIMAL(6, 2),
+    largeur_poitrine    DECIMAL(6, 2),
+    longueur_clavicule  DECIMAL(6, 2),
     mesures_photo  VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

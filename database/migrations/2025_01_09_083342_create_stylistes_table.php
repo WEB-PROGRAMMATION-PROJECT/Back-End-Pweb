@@ -18,6 +18,7 @@ class CreateStylistesTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('phone_number')->nullable();
             $table->text('specializations')->nullable();
+            $table->text('titre')->nullable();
             $table->text('description')->nullable();
             $table->string('profile_picture_url')->nullable();
             $table->integer('points')->default(0);
@@ -26,7 +27,7 @@ class CreateStylistesTable extends Migration
             $table->decimal('rating', 3, 2)->default(0);
             $table->string('response_time')->nullable();
             $table->integer('completed_orders')->default(0);
-            $table->string('specialites')->nullable();
+            $table->text('social_links')->nullable();
             $table->timestamps(0);
             $table->softDeletes();
         });
