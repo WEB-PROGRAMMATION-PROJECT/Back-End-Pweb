@@ -35,56 +35,62 @@ class StylisteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function getStylistProfile($id)
     {
-        // app/Models/Stylist.php
-        namespace App\Models;
+        // Trouver le styliste avec son utilisateur associé
+        $stylist = Stylist::where('user_id', $id)->first();
 
-        use Illuminate\Database\Eloquent\Factories\HasFactory;
-        use Illuminate\Database\Eloquent\Model;
-
-        class Stylist extends Model
-        {
-            use HasFactory;
-
-            protected $fillable = [
-                'user_id',
-                'phone_number',
-                'specializations',
-                'description',
-                'profile_picture_url',
-                'points',
-                'collections',
-                'awards',
-                'rating',
-                'response_time',
-                'completed_orders',
-                'specialites',
-            ];
+        if (!$stylist) {
+            return response()->json(['message' => 'Styliste introuvable'], 404);
         }
 
-        }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Stylist  $styliste
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Stylist $styliste)
+        return response()->json($stylist);
+    }
+    public function updateProfile(Request $request, $id)
     {
-        //
+        $stylist = Stylist::findOrFail($id);
+
+        // Vérifier si les liens sociaux sont présents et valides
+        $socialLinks = $request->has('social_links') ? json_encode($request->input('social_links')) : null;
+
+        $stylist->update([
+            'phone_number' => $request->input('phone_number'),
+            'whatsapp' => $request->input('whatsapp'),
+            'description' => $request->input('description'),
+            'titre' => $request->input('titre'),
+            'specializations' => $request->input('specializations'), // Convertir en JSON
+            'social_links' => $request->input('social_links'), // Sauvegarder les liens sociaux en format JSON
+        ]);
+
+        return response()->json($stylist);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Stylist  $styliste
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Stylist $styliste)
+    // Mettre à jour la photo de profil
+    public function updateProfilePhoto(Request $request, $id)
     {
-        //
+        $stylist = Stylist::findOrFail($id);
+
+        if ($request->hasFile('profile_picture')) {
+            $path = $request->file('profile_picture')->store('profile_pictures');
+            $stylist->profile_picture_url = $path;
+            $stylist->save();
+        }
+
+        return response()->json($stylist);
+    }
+
+    // Mettre à jour la photo de couverture
+    public function updateCoverPhoto(Request $request, $id)
+    {
+        $stylist = Stylist::findOrFail($id);
+
+        if ($request->hasFile('cover_photo')) {
+            $path = $request->file('cover_photo')->store('cover_photos');
+            $stylist->cover_image_url = $path;
+            $stylist->save();
+        }
+
+        return response()->json($stylist);
     }
 
     /**

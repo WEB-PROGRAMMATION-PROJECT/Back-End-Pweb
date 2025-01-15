@@ -17,6 +17,13 @@ class Client extends Model
         'hauteur_totale',
         'longueur_bras',
         'tour_cou',
+        'largeur_dos',
+        'longueur_jambe',
+        'tour_cuisse',
+        'tour_cheville',
+        'tour_poignet',
+        'largeur_poitrine',
+        'longueur_clavicule',
         'mesures_photo',
     ];
 
