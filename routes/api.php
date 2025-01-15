@@ -52,6 +52,7 @@ Route::prefix('commandes')->group(function () {
 Route::prefix('clients')->group(function () {
     Route::get('/', [ClientController::class, 'index'])->name('clients.index');
     Route::post('/create', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/{client}', [ClientController::class, 'show'])->name('clients.show');
 });
 
 
