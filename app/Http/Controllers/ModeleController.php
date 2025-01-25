@@ -18,15 +18,6 @@ class ModeleController extends Controller
         return response()->json($modeles, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -69,17 +60,6 @@ class ModeleController extends Controller
     public function show(Modele $modele)
     {
         return response()->json($modele, 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Modele  $modele
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Modele $modele)
-    {
-        //
     }
 
     /**

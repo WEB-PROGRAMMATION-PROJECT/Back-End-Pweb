@@ -14,7 +14,6 @@ class AuthController extends Controller
 {
 
     // Inscription d'un utilisateur (client ou styliste)
-    // Inscription d'un utilisateur (client ou styliste)
 
     /**
      * @Route("/api/register", name="register", methods={"POST"})

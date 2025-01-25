@@ -14,18 +14,21 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commades = Commande::all();
+        $commades = Commande::with(['client', 'styliste', 'modele'])->get();
+
         return response()->json($commades);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      *
+     * @param  \int  $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show($id)
     {
-        //
+        $commande = Commande::with(['client', 'styliste', 'modele'])->findOrFail($id);
+        return response()->json($commande);
     }
 
     /**
@@ -40,44 +43,39 @@ class CommandeController extends Controller
             'client_id' => 'required|exists:users,id',
             'styliste_id' => 'required|exists:users,id',
             'modele_id' => 'required|exists:modeles,id',
+            'adresse_livraison_id' => 'required|exists:adresse_livraisons,id',
+            'prix_total' => 'required|numeric|min:0',
+            'notes' => 'nullable|string|max:255',
         ]);
 
-        $commande = Commande::create(array_merge($validated, ['status' => 'pending']));
+        // Génération d'une référence unique pour la commande
+        $reference = 'CMD-' . strtoupper(uniqid());
+
+        // Création de la commande
+        $commande = Commande::create(array_merge($validated, [
+            'reference' => $reference,
+            'state' => 0,
+            'date_commande' => now(),
+            'status' => 'pending',
+        ]));
 
         return response()->json(['message' => 'Commande créée avec succès', 'commande' => $commande], 201);
+        // return response()->json(['message' => 'Requête reçue'], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Commande  $commande
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Commande $commande)
-    {
-        return response()->json($commande);
-    }
+
 
     /**
-     * Show the form for editing the specified resource.
+     * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Commande  $commande
+     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function edit(Commande $commande)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $commande = Commande::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Commande  $commande
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Commande $commande)
-    {
         $validated = $request->validate([
             'status' => 'required|in:pending,in_progress,completed,cancelled',
         ]);
@@ -90,16 +88,17 @@ class CommandeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Commande  $commande
+     * @param  int  $commande
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Commande $commande)
+    public function destroy($id)
     {
+        $commande = Commande::findOrFail($id);
+
         $commande->delete();
 
         return response()->json(['message' => 'Commande supprimée avec succès']);
     }
-
 
     /**
      * Récupère les commandes d'un styliste spécifique.
@@ -111,7 +110,7 @@ class CommandeController extends Controller
     {
         $commandes = Commande::whereHas('modele', function ($query) use ($stylistId) {
             $query->where('styliste_id', $stylistId);
-        })->get();
+        })->with(['client:id,first_name', 'client:id,tour_poitrine', 'client:id,tour_taille', 'client:id,tour_hanches', 'client:id,hauteur', 'modele:id,name', 'modele:id,image1'])->get();
 
         if ($commandes->isEmpty()) {
             return response()->json([

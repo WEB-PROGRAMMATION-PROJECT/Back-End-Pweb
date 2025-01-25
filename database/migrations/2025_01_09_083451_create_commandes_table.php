@@ -15,10 +15,11 @@ class CreateCommandesTable extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->string('reference')->unique();
+            $table->string('reference')->unique()->default('');
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+            $table->foreignId('styliste_id')->constrained('stylistes')->onDelete('cascade');
             $table->foreignId('modele_id')->constrained('modeles')->onDelete('cascade');
-            $table->foreignId('adresse_livraison_id')->constrained('adresse_livraisons')->onDelete('cascade');
+            $table->foreignId('adresse_livraison_id')->constrained('adresse_livraisons')->onDelete('cascade')->default(1);
             $table->integer('state')->default(0);
             $table->decimal('prix_total', 10, 2);
             $table->timestamp('date_commande')->useCurrent();

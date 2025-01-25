@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CommandeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -35,5 +37,16 @@ Route::middleware(['CORS'])->group(function () {
     // Autres routes API...
 });
 
+Route::prefix('commandes')->group( function () {
+    Route::get('/', [CommandeController::class,'index'])->name('commandes.index');
+    Route::get('/{id}', [CommandeController::class,'show'])->name('commandes.show');
+    Route::post('/create', [CommandeController::class,'store'])->name('commandes.store');
+    Route::put('/update/{id}', [CommandeController::class,'update'])->name('commandes.update');
+    Route::delete('/delete/{id}', [CommandeController::class,'delete'])->name('commandes.delete');
 
+    Route::get('/styliste/{stylistId}', [CommandeController::class,'getByStylist'])->name('commandes.getByStylist');
+    Route::get('/client/{clientId}', [CommandeController::class,'getByClient'])->name('commandes.getByClient');
+});
+
+Route::get('/categories', [CategorieController::class,'index']);
 
