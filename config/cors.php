@@ -14,21 +14,13 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
-
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
-
-    'allowed_methods' => ['*'],
-
-    'allowed_origins' => ['*'],
-
-    'allowed_origins_patterns' => [],
-
-    'allowed_headers' => ['*'],
-
-    'exposed_headers' => [],
-
-    'max_age' => 0,
-
     'supports_credentials' => false,
+    'allowed_origins' => ['http://localhost:4200'], // Autoriser les requêtes de cette origine
+    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization', 'Origin', 'Accept', 'X-CSRF-TOKEN'],
+    'allowed_methods' => ['*'], // Accepter toutes les méthodes HTTP (GET, POST, PUT, DELETE)
+    'exposed_headers' => [],
+    'max_age' => 0,
+    'hosts' => [],
+    'paths' => ['api/*'],
 
 ];

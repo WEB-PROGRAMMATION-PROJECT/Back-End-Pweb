@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSpecialitesTable extends Migration
+class CreateMateriauxTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateSpecialitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('specialites', function (Blueprint $table) {
+        Schema::create('materiaux', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('modele_id')->constrained('modeles')->onDelete('cascade');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->timestamps(0);
         });
     }
 
@@ -26,6 +29,6 @@ class CreateSpecialitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('specialites');
+        Schema::dropIfExists('materiaux');
     }
 }

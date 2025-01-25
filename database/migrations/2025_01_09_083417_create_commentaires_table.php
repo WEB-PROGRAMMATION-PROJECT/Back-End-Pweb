@@ -8,24 +8,28 @@ class CreateCommentairesTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('content');
             $table->integer('likes')->default(0);
-            $table->enum('type', ['styliste', 'modele']);
-            $table->timestamps();
+            $table->timestamps(0);
             $table->softDeletes();
+            $table->enum('type', ['styliste', 'modele']);
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('commentaires');
     }

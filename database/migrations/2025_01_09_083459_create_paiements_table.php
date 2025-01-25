@@ -8,24 +8,28 @@ class CreatePaiementsTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('commande_id')->constrained('commandes')->onDelete('cascade');
             $table->decimal('montant', 10, 2);
-            $table->string('methode', 50);
+            $table->string('methode');
             $table->enum('status', ['pending', 'completed', 'failed', 'refunded'])->default('pending');
-            $table->string('reference_transaction', 100)->nullable();
-            $table->timestamps();
+            $table->string('reference_transaction')->nullable();
+            $table->timestamps(0);
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('paiements');
     }

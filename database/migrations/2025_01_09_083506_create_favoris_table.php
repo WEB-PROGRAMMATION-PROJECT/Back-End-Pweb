@@ -8,21 +8,25 @@ class CreateFavorisTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('favoris', function (Blueprint $table) {
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
             $table->foreignId('modele_id')->constrained('modeles')->onDelete('cascade');
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps(0);
             $table->primary(['client_id', 'modele_id']);
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('favoris');
     }

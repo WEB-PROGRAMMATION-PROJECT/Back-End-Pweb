@@ -8,20 +8,24 @@ class CreateCommentaireModelesTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('commentaire_modeles', function (Blueprint $table) {
-            $table->foreignId('id')->constrained('commentaires')->onDelete('cascade');
+            $table->id();
             $table->foreignId('modele_id')->constrained('modeles')->onDelete('cascade');
-            $table->primary(['id', 'modele_id']);
+            $table->foreignId('commentaire_id')->constrained('commentaires')->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('commentaire_modeles');
     }
