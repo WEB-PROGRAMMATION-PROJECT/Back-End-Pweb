@@ -20,6 +20,7 @@ class CreateModelesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('story')->nullable();
+            $table->text('materiaux_ids')->nullable();
             $table->integer('points')->default(0);
             $table->enum('status', ['available', 'unavailable', 'archived'])->default('available');
             $table->decimal('prix_min', 10, 2);
@@ -35,6 +36,7 @@ class CreateModelesTable extends Migration
             $table->string('image4')->nullable();
             $table->string('image5')->nullable();
             $table->timestamps(0);
+
             $table->softDeletes();
         });
     }

@@ -7,12 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stylist extends Model
 {
-    protected $table = 'stylistes'; // Assurez-vous que cela correspond à la table dans la base de données
+    use HasFactory;
+
+    // Déclarer les champs mass-assignables
+    protected  $table = "stylistes";
     protected $fillable = [
         'user_id',
         'phone_number',
-        'specializations',
+        'collections',
         'description',
+        'titre',
+        'specializations',
+        'social_links',
         'profile_picture_url',
+        'cover_image_url',
     ];
+
+    /**
+     * Relation : Un styliste appartient à un utilisateur.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

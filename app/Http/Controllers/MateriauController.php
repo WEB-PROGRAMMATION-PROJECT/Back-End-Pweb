@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Materiau;
+use App\Models\Materiaux;
 use Illuminate\Http\Request;
 
 class MateriauController extends Controller
@@ -14,7 +14,11 @@ class MateriauController extends Controller
      */
     public function index()
     {
-        //
+        // Récupérer tous les matériaux
+        $materiaux = Materiaux::all();
+
+        // Retourner les matériaux en réponse JSON
+        return response()->json($materiaux);
     }
 
     /**
@@ -22,9 +26,21 @@ class MateriauController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showByIds(Request $request)
     {
-        //
+        // Récupérer les IDs des matériaux directement du corps de la requête
+        $ids = $request->input('materiaux_ids'); // { "materiaux_ids": [1, 2, 3] }
+
+        // Vérifier si l'array d'IDs est valide
+        if (!is_array($ids) || empty($ids)) {
+            return response()->json(['error' => 'IDs invalides ou manquants'], 400);
+        }
+
+        // Récupérer les matériaux correspondant aux IDs
+        $materiaux = Materiaux::whereIn('id', $ids)->get();
+
+        // Retourner les matériaux en réponse JSON
+        return response()->json($materiaux);
     }
 
     /**
@@ -44,7 +60,7 @@ class MateriauController extends Controller
      * @param  \App\Models\Materiau  $materiau
      * @return \Illuminate\Http\Response
      */
-    public function show(Materiau $materiau)
+    public function show(Materiaux $materiau)
     {
         //
     }
@@ -52,10 +68,10 @@ class MateriauController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Materiau  $materiau
+     * @param  \App\Models\Materiaux  $materiau
      * @return \Illuminate\Http\Response
      */
-    public function edit(Materiau $materiau)
+    public function edit(Materiaux $materiau)
     {
         //
     }
@@ -67,7 +83,7 @@ class MateriauController extends Controller
      * @param  \App\Models\Materiau  $materiau
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Materiau $materiau)
+    public function update(Request $request, Materiaux $materiau)
     {
         //
     }
@@ -78,7 +94,7 @@ class MateriauController extends Controller
      * @param  \App\Models\Materiau  $materiau
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Materiau $materiau)
+    public function destroy(Materiaux $materiau)
     {
         //
     }

@@ -107,8 +107,6 @@ class AuthController extends Controller
             // Hachage du mot de passe reçu pour le log avant la comparaison
             $hashedPassword = Hash::make($request->password);
 
-            // Affichage du mot de passe haché dans les logs
-            \Log::info('Mot de passe reçu haché: ' . $hashedPassword);
 
             // Comparer le mot de passe haché reçu avec celui stocké dans la base de données
             if (!Hash::check($request->password, $user->password)) {

@@ -21,6 +21,7 @@ class CreateStylistesTable extends Migration
             $table->text('titre')->nullable();
             $table->text('description')->nullable();
             $table->string('profile_picture_url')->nullable();
+            $table->string('cover_image_url')->nullable();
             $table->integer('points')->default(0);
             $table->integer('collections')->default(0);
             $table->integer('awards')->default(0);
@@ -41,5 +42,9 @@ class CreateStylistesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('stylistes');
+        Schema::table('stylistes', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
+        });
     }
 }
