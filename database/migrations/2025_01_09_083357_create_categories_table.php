@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('image')->nullable();
             $table->integer('count')->default(0);
             $table->string('href')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps(0);
         });
     }

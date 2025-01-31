@@ -10,6 +10,8 @@ use App\Http\Controllers\StylisteController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\MateriauController;
 use App\Http\Controllers\ModeleController;
+
+use App\Http\Controllers\CommandeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,6 +46,35 @@ Route::middleware(['CORS'])->group(function () {
     Route::get('materiaux/{id}', [MateriauController::class, 'showByIds']);
     Route::post('addmodel', [ModeleController::class, 'store']);
     // Autres routes API...
+
+
+});
+Route::prefix('commandes')->group(function () {
+    // Liste de toutes les commandes (index)
+    Route::get('/', [CommandeController::class, 'index'])->name('commandes.index');
+
+    // Afficher une commande spécifique (show)
+    Route::get('/{commande}', [CommandeController::class, 'show'])->name('commandes.show');
+
+    // Créer une commande (store)
+    Route::post('/create', [CommandeController::class, 'store'])->name('commandes.store');
+
+    // Mettre à jour une commande (update)
+    Route::put('/update/{commande}', [CommandeController::class, 'update'])->name('commandes.update');
+
+    // Supprimer une commande (destroy)
+    Route::delete('/delete/{commande}', [CommandeController::class, 'destroy'])->name('commandes.destroy');
+
+    // Récupérer les commandes d’un styliste spécifique
+    Route::get('/styliste/{styliste}', [CommandeController::class, 'getByStylist'])->name('commandes.getByStylist');
+
+    // Récupérer les commandes d'un client spécifique
+    Route::get('/client/{clientId}', [CommandeController::class, 'getByClient'])->name('commandes.getByClient');
+});
+
+Route::prefix('modeles')->group(function () {
+    Route::put('/update/{modele}', [ModeleController::class, 'update'])->name('modeles.update');
+    Route::put('/delete/{modele}', [ModeleController::class, 'destroy'])->name('modeles.destroy');
 });
 
 

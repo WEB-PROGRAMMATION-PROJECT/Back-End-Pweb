@@ -15,7 +15,7 @@ class CreateModelesTable extends Migration
     {
         Schema::create('modeles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('styliste_id')->constrained('stylistes')->onDelete('cascade');
+            $table->foreignId('styliste_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
@@ -36,7 +36,7 @@ class CreateModelesTable extends Migration
             $table->string('image4')->nullable();
             $table->string('image5')->nullable();
             $table->timestamps(0);
-
+            $table->text('materiaux_ids')->nullable();
             $table->softDeletes();
         });
     }

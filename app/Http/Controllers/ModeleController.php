@@ -134,6 +134,36 @@ class ModeleController extends Controller
     // Retourner le modèle trouvé en réponse JSON
     return response()->json($modele);
 }
+public function destroy(Modele $modele)
+    {
+        $modele->delete();
+        return response()->json(['message' => 'Modèle supprimé avec succès'], 200);
+    }
+    public function update(Request $request, Modele $modele)
+    {
+        $validated = $request->validate([
+            'styliste_id' => 'sometimes|exists:users,id',
+            'categorie_id' => 'sometimes|exists:categories,id',
+            'name' => 'sometimes|string|max:255',
+            'description' => 'nullable|string',
+            'story' => 'nullable|string',
+            'points' => 'nullable|integer',
+            'status' => 'sometimes|in:available,unavailable,archived',
+            'prix_min' => 'sometimes|numeric|min:0',
+            'prix_max' => 'sometimes|numeric|min:0',
+            'temps_min' => 'sometimes|integer|min:0',
+            'temps_max' => 'sometimes|integer|min:0',
+            'styles' => 'nullable|string',
+            'image1' => 'sometimes|string|max:255',
+            'image2' => 'sometimes|string|max:255',
+            'image3' => 'sometimes|string|max:255',
+            'image4' => 'nullable|string|max:255',
+            'image5' => 'nullable|string|max:255',
+        ]);
+
+        $modele->update($validated);
+        return response()->json($modele, 200);
+    }
  
 
 }
