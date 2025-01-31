@@ -31,75 +31,87 @@ class CategorieController extends Controller
     public function create()
     {
         // Les données des catégories
-        $categories = [
-            [
-                'name' => 'TENUE TRADITIONNELLE',
-                'image' => 'tailleur.jpg', // L'image doit être placée dans le dossier public
-                'count' => 10,
-                'href' => '/categorie-1'
-            ],
-            [
-                'name' => 'TAILLEUR FEMME',
-                'image' => 'tailleur.jpg',
-                'count' => 5,
-                'href' => '/categorie-2'
-            ],
-            [
-                'name' => 'TAILLEUR HOMME',
-                'image' => 'tailleur.jpg',
-                'count' => 7,
-                'href' => '/categorie-3'
-            ],
-            [
-                'name' => 'ROBE DE SOIREE',
-                'image' => 'tailleur.jpg',
-                'count' => 15,
-                'href' => '/categorie-4'
-            ],
-            [
-                'name' => 'PATALON',
-                'image' => 'tailleur.jpg',
-                'count' => 2,
-                'href' => '/categorie-5'
-            ],
-            [
-                'name' => 'JUPE',
-                'image' => 'tailleur.jpg',
-                'count' => 8,
-                'href' => '/categorie-6'
-            ],
-            [
-                'name' => 'ROBE COURTE',
-                'image' => 'tailleur.jpg',
-                'count' => 3,
-                'href' => '/categorie-7'
-            ],
-            [
-                'name' => 'MODE ETHIQUE ET DURABLE',
-                'image' => 'tailleur.jpg',
-                'count' => 20,
-                'href' => '/categorie-8'
-            ],
-            [
-                'name' => 'MODEL ENFANT',
-                'image' => 'tailleur.jpg',
-                'count' => 12,
-                'href' => '/categorie-9'
-            ],
-            [
-                'name' => 'CHEMISE',
-                'image' => 'tailleur.jpg',
-                'count' => 18,
-                'href' => '/categorie-10'
-            ]
-        ];
+       // Les données des catégories
+$categories = [
+    [
+        'name' => 'TENUE TRADITIONNELLE',
+        'image' => 'tradi.jpeg',
+        'count' => 10,
+        'description' => 'Vêtements traditionnels reflétant l’héritage culturel et artisanal.',
+        'href' => '/categorie-1'
+    ],
+    [
+        'name' => 'TAILLEUR FEMME',
+        'image' => 'tailleur.jpg',
+        'count' => 5,
+        'description' => 'Ensembles élégants et professionnels pour femmes.',
+        'href' => '/categorie-2'
+    ],
+    [
+        'name' => 'TAILLEUR HOMME',
+        'image' => 'tailleurh.jpeg',
+        'count' => 7,
+        'description' => 'Costumes et ensembles raffinés pour hommes.',
+        'href' => '/categorie-3'
+    ],
+    [
+        'name' => 'ROBE DE SOIREE',
+        'image' => 'robe.jpeg',
+        'count' => 15,
+        'description' => 'Robes élégantes pour des occasions spéciales et soirées.',
+        'href' => '/categorie-4'
+    ],
+    [
+        'name' => 'PATALON',
+        'image' => 'patalon.jpeg',
+        'count' => 2,
+        'description' => 'Pantalons tendance et confortables pour tous les styles.',
+        'href' => '/categorie-5'
+    ],
+    [
+        'name' => 'JUPE',
+        'image' => 'jupe.jpeg',
+        'count' => 8,
+        'description' => 'Jupes variées, du casual au chic.',
+        'href' => '/categorie-6'
+    ],
+    [
+        'name' => 'ROBE COURTE',
+        'image' => 'R.jpeg',
+        'count' => 3,
+        'description' => 'Robes courtes stylées et modernes.',
+        'href' => '/categorie-7'
+    ],
+    [
+        'name' => 'MODE ETHIQUE ET DURABLE',
+        'image' => 'ethique.jpeg',
+        'count' => 20,
+        'description' => 'Mode respectueuse de l’environnement et du commerce équitable.',
+        'href' => '/categorie-8'
+    ],
+    [
+        'name' => 'MODEL ENFANT',
+        'image' => 'enfant.jpeg',
+        'count' => 12,
+        'description' => 'Vêtements adaptés au style et au confort des enfants.',
+        'href' => '/categorie-9'
+    ],
+    [
+        'name' => 'CHEMISE',
+        'image' => 'chemis.jpeg',
+        'count' => 18,
+        'description' => 'Chemises élégantes et décontractées pour toutes les occasions.',
+        'href' => '/categorie-10'
+    ]
+];
+
 
         foreach ($categories as $category) {
             // Initialisation du chemin de l'image
             $imagePath = null;
     
             // Vérifier si le fichier existe dans storage/app/public
-            $sourcePath = 'tailleur.jpg';  // Le fichier source dans storage/app/public
+            $sourcePath = $category['image']; // Le fichier source dans storage/app/public
     
             // Vérifier si le fichier existe dans le dossier public
             if (Storage::disk('public')->exists($sourcePath)) {
@@ -127,6 +139,7 @@ class CategorieController extends Controller
                 'image' => $imagePath,  // Chemin relatif de l'image
                 'count' => $category['count'],
                 'href' => $category['href'],
+                'description' => $category['description'],
             ]);
         }
 

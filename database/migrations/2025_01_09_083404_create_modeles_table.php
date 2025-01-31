@@ -36,7 +36,6 @@ class CreateModelesTable extends Migration
             $table->string('image4')->nullable();
             $table->string('image5')->nullable();
             $table->timestamps(0);
-            $table->text('materiaux_ids')->nullable();
             $table->softDeletes();
         });
     }

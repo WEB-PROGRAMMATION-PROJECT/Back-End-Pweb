@@ -28,7 +28,7 @@ class CreateClientsTable extends Migration
             $table->decimal('tour_cheville', 6, 2)->nullable();  // Ajouté
             $table->decimal('tour_poignet', 6, 2)->nullable();  // Ajouté
             $table->decimal('largeur_poitrine', 6, 2)->nullable();  // Ajouté
-            $table->decimal('longueur_c lavicule', 6, 2)->nullable();  // Ajouté
+            $table->decimal('longueur_clavicule', 6, 2)->nullable();  // Ajouté
             $table->string('mesures_photo')->nullable();
             $table->timestamps(0);
             $table->softDeletes();;
